@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 part 'mutation.dart';
 part 'inherited_model.dart';
 
+/// {@template store_keeper.store}
 /// App's store should extend this class. An instance of this class is
 /// given to [StoreKeeper] while initialization.
-abstract class Store {}
+/// {@endtemplate}
+abstract class Store {
+  /// {@macro store_keeper.store}
+  const Store();
+}
 
 /// The coordinating widget that keeps track of mutations
 /// and the notify the same to the listening widgets.
