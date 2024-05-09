@@ -115,9 +115,14 @@ mixin SideEffects<ON> {
   dynamic branch(ON result);
 }
 
+/// {@template store_keeper.mutation.interceptor}
 /// Implementation of this class can be used to act before or after
 /// a mutation execution.
+/// {@endtemplate}
 abstract class Interceptor {
+  /// {@macro store_keeper.mutation.interceptor}
+  const Interceptor();
+
   /// Function called before mutation is executed.
   /// Execution can be cancelled by returning false.
   bool beforeMutation(Mutation mutation);
