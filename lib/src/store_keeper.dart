@@ -30,12 +30,17 @@ class StoreKeeper extends StatelessWidget {
   /// Broadcast stream of mutations executing across app
   static Stream<Mutation> get events => _events.stream;
 
-  /// Single store approach. This is set when initializing the app.
+  /// This is set when initializing the app.
   static late Store _store;
 
   /// Getter to get the current instance of [Store]. It can be
   /// casted to appropriate type by the widgets.
   static Store get store => _store;
+
+  /// Setter to update the instace of [Store].
+  static set store(Store store) {
+    StoreKeeper._store = store;
+  }
 
   /// Keeps the set of mutations executed between previous and
   /// current build cycle.
