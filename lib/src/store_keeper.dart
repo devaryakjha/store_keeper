@@ -16,6 +16,11 @@ abstract class Store {
 /// The coordinating widget that keeps track of mutations
 /// and the notify the same to the listening widgets.
 class StoreKeeper extends StatelessWidget {
+  //
+  static final Completer _completer = Completer.sync();
+
+  static bool get _initialised => _completer.isCompleted;
+
   /// App's root widget
   final Widget child;
 
@@ -76,10 +81,18 @@ class StoreKeeper extends StatelessWidget {
   StoreKeeper({
     required Store store,
     required this.child,
-    List<Interceptor> interceptors = const [],
+    final List<Interceptor> interceptors = const [],
+    super.key,
   }) {
+    if (_initialised) return;
+    _init(interceptors, store);
+  }
+
+  void _init(List<Interceptor> interceptors, Store store) {
+    print("StoreKeeper Initialising");
     StoreKeeper._store = store;
     StoreKeeper._interceptors = interceptors;
+    _completer.complete();
   }
 
   @override
