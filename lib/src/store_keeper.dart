@@ -67,8 +67,10 @@ class StoreKeeper extends StatelessWidget {
     return _events.stream.where((e) => e.runtimeType == mutation);
   }
 
+  /// {@template store_keeper.listen}
   /// Attaches context to the mutations given in `to` param.
   /// When a mutation specified execute widget will rebuild.
+  /// {@endtemplate}
   static void listen(BuildContext context, {required List<Type> to}) {
     for (var mut in to) {
       context.dependOnInheritedWidgetOfExactType<_StoreKeeperModel>(
@@ -89,7 +91,6 @@ class StoreKeeper extends StatelessWidget {
   }
 
   void _init(List<Interceptor> interceptors, Store store) {
-    print("StoreKeeper Initialising");
     StoreKeeper._store = store;
     StoreKeeper._interceptors = interceptors;
     _completer.complete();
