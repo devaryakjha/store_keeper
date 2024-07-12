@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:store_keeper/store_keeper.dart';
 
@@ -45,7 +46,7 @@ class RateLimiterExample extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text("Count: ${store.count}"),
-            RaisedButton(
+            CupertinoButton(
               child: Text("Increment"),
               onPressed: () => Increment(),
             ),

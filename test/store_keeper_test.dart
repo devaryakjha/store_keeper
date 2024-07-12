@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter_test/flutter_test.dart';
-
-import 'package:store_keeper/store_keeper.dart';
-
 import 'package:flutter/widgets.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:store_keeper/store_keeper.dart';
 
 class TestStore extends Store {
   int count = 0;
@@ -42,8 +40,8 @@ class AsyncIncrement extends Mutation<TestStore> {
 class IncrementLater extends Mutation<TestStore> {
   @override
   void exec() {
-    later(() => Increment());
-    later(() => Increment());
+    later(Increment.new);
+    later(Increment.new);
   }
 }
 

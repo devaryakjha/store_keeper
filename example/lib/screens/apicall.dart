@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:example/store.dart';
 
-abstract class HttpEffects implements SideEffects<http.Request> {
+mixin HttpEffects implements SideEffects<http.Request> {
   @override
   Future<void> branch(http.Request result) async {
     final response = await http.Response.fromStream(await result.send());
@@ -36,11 +36,13 @@ class FetchIP extends Mutation<AppStore> with HttpEffects {
       return http.Request("GET", Uri.parse("https://icanhazip.com"));
   }
 
+  @override
   void success(http.Response response) {
     store.isFetchingIP = false;
     store.ip = response.body;
   }
 
+  @override
   void fail(http.Response response) {
     store.isFetchingIP = false;
     err = "Couldn't fetch. Error ${response.statusCode}.";
@@ -59,7 +61,7 @@ class APICallExample extends StatelessWidget {
   void onFetchIP(BuildContext ctx, Mutation mut) {
     final err = (mut as FetchIP).err;
     if (err.isNotEmpty) {
-      Scaffold.of(ctx).showSnackBar(
+      ScaffoldMessenger.of(ctx).showSnackBar(
         SnackBar(content: Text(err)),
       );
     }
@@ -94,13 +96,13 @@ class APICallExample extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text("IP: ${store.ip}"),
-              RaisedButton(
+              ElevatedButton(
                 child: Text("Make API Call"),
                 onPressed: () {
                   FetchIP();
                 },
               ),
-              RaisedButton(
+              ElevatedButton(
                 child: Text("Make API Call (with error)"),
                 onPressed: () {
                   FetchIP(forceError: true);
