@@ -112,6 +112,7 @@ abstract class Mutation<T extends Store> {
 /// Similar to chaining actions in Redux. For example, an http request
 /// will have a success or a fail side effect after request is complete.
 mixin SideEffects<ON> {
+  /// This function is called after the mutation is executed.
   dynamic branch(ON result);
 }
 
